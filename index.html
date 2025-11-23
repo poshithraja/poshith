@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poshith Raja - Data Engineer Portfolio</title>
+    <style>
+        :root {
+            --color-bg-primary: #0f172a;
+            --color-bg-secondary: #1e293b;
+            --color-bg-card: #334155;
+            --color-accent: #3b82f6;
+            --color-accent-hover: #2563eb;
+            --color-accent-dim: #60a5fa;
+            --color-text-primary: #f8fafc;
+            --color-text-secondary: #cbd5e1;
+            --color-border: rgba(148, 163, 184, 0.2);
+            --color-gradient-1: #3b82f6;
+            --color-gradient-2: #8b5cf6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--color-bg-primary);
+            color: var(--color-text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .background-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(139, 92, 246, 0.06) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(12px);
+            background: rgba(15, 23, 42, 0.85);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .logo {
+            font-size: 1.75rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            background: linear-gradient(135deg, var(--color-gradient-1), var(--color-gradient-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: var(--color-accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--color-text-primary);
+        }
+
+        .nav-links a:hover::before {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 5%;
+            z-index: 1;
+        }
+
+        .hero-content {
+            max-width: 1000px;
+            text-align: center;
+        }
+
+        .hero-label {
+            display: inline-block;
+            padding: 0.5rem 1.25rem;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 50px;
+            color: var(--color-accent-dim);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            letter-spacing: 0.5px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 7vw, 5rem);
+            font-weight: 900;
+            line-height: 1.15;
+            margin-bottom: 1.5rem;
+            letter-spacing: -2px;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--color-gradient-1), var(--color-gradient-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.35rem;
+            color: var(--color-text-secondary);
+            margin-bottom: 3rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.8;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.25rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2.25rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--color-accent), var(--color-gradient-2));
+            color: white;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--color-text-primary);
+            border: 2px solid var(--color-border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--color-accent);
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        /* Section Styling */
+        section {
+            position: relative;
+            padding: 7rem 5%;
+            z-index: 1;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-label {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 50px;
+            color: var(--color-accent-dim);
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .section-title {
+            font-size: clamp(2.25rem, 5vw, 3.25rem);
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            margin-bottom: 1rem;
+        }
+
+        .section-description {
+            font-size: 1.15rem;
+            color: var(--color-text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* About Section */
+        .about-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .about-card {
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .about-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--color-accent);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.15);
+        }
+
+        .about-card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .about-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+        }
+
+        .about-card p {
+            color: var(--color-text-secondary);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        .about-text {
+            text-align: center;
+            color: var(--color-text-secondary);
+            font-size: 1.1rem;
+            line-height: 1.9;
+            margin-bottom: 2.5rem;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .skill-category {
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .skill-category:hover {
+            border-color: var(--color-accent);
+            transform: translateY(-5px);
+        }
+
+        .skill-category h3 {
+            font-size: 1.35rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .skill-category-icon {
+            font-size: 1.75rem;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .skill-tag {
+            padding: 0.65rem 1.25rem;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: var(--color-accent-dim);
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .skill-tag:hover {
+            background: rgba(59, 130, 246, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Experience Timeline */
+        .experience-timeline {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .experience-timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: var(--color-border);
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 3rem;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-content {
+            flex: 1;
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            border-color: var(--color-accent);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.15);
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 16px;
+            height: 16px;
+            background: var(--color-accent);
+            border: 4px solid var(--color-bg-primary);
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .company-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .company-name {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--color-accent-dim);
+        }
+
+        .duration {
+            padding: 0.4rem 1rem;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 6px;
+            font-size: 0.85rem;
+            color: var(--color-text-secondary);
+            font-weight: 500;
+        }
+
+        .role {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-info {
+            color: var(--color-text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .tech-badge {
+            padding: 0.35rem 0.85rem;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 6px;
+            font-size: 0.8rem;
+            color: var(--color-gradient-2);
+            font-weight: 500;
+        }
+
+        .responsibilities {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .responsibilities li {
+            padding-left: 1.75rem;
+            margin-bottom: 0.75rem;
+            color: var(--color-text-secondary);
+            position: relative;
+            line-height: 1.7;
+        }
+
+        .responsibilities li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--color-accent);
+            font-size: 1.25rem;
+        }
+
+        /* Education Section */
+        .education-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .education-card {
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border);
+            border-radius: 16px;
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .education-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--color-accent);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.15);
+        }
+
+        .degree-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .degree {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .college {
+            font-size: 1.1rem;
+            color: var(--color-accent-dim);
+            margin-bottom: 0.75rem;
+        }
+
+        .edu-duration {
+            color: var(--color-text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Contact Section */
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .contact-card {
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--color-accent);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.15);
+        }
+
+        .contact-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .contact-card p {
+            color: var(--color-accent-dim);
+            font-size: 0.95rem;
+        }
+
+        .contact-form {
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border);
+            border-radius: 16px;
+            padding: 2.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            background: var(--color-bg-card);
+            border: 1px solid var(--color-border);
+            border-radius: 10px;
+            color: var(--color-text-primary);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--color-accent);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 5%;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .footer-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-link {
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--color-accent);
+        }
+
+        .copyright {
+            color: var(--color-text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem 5%;
+            }
+
+            .nav-links {
+                gap: 1.25rem;
+            }
+
+            .nav-links a {
+                font-size: 0.85rem;
+            }
+
+            .hero {
+                min-height: 85vh;
+            }
+
+            section {
+                padding: 5rem 5%;
+            }
+
+            .experience-timeline::before {
+                left: 0;
+            }
+
+            .timeline-item,
+            .timeline-item:nth-child(even) {
+                flex-direction: column;
+                padding-left: 2rem;
+            }
+
+            .timeline-dot {
+                left: 0;
+                transform: translateX(0);
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* Scroll Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="background-pattern"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">PR.</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="hero-label">Senior Associate Consultant @ Infosys</div>
+            <h1>Hi, I'm <span class="gradient-text">Poshith Raja Sikha</span></h1>
+            <p class="hero-subtitle">Data Engineer specializing in Big Data Technologies with 4+ years of experience building scalable data pipelines and analytics solutions using PySpark, Databricks, and Cloud platforms</p>
+            <div class="cta-buttons">
+                <a href="#contact" class="btn btn-primary">
+                    <span>Get In Touch</span>
+                    <span>→</span>
+                </a>
+                <a href="#experience" class="btn btn-secondary">View Experience</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="section-header fade-in">
+            <div class="section-label">About Me</div>
+            <h2 class="section-title">Who I Am</h2>
+            <p class="section-description">Passionate data engineer with expertise in building robust data solutions</p>
+        </div>
+        
+        <div class="about-content">
+            <p class="about-text fade-in">
+                I'm a dedicated data engineer with over 4 years of experience in Big Data Technologies, specializing in PySpark, Databricks, and cloud-based data solutions. I excel at transforming complex data challenges into efficient, scalable solutions that drive business insights and decision-making.
+            </p>
+            
+            <div class="about-grid">
+                <div class="about-card fade-in">
+                    <div class="about-card-icon">💼</div>
+                    <h3>Professional Experience</h3>
+                    <p>4+ years working with industry leaders including Infosys, Scalability Engineers, and Accenture</p>
+                </div>
+                
+                <div class="about-card fade-in">
+                    <div class="about-card-icon">🎯</div>
+                    <h3>Core Expertise</h3>
+                    <p>Specialized in data engineering, ETL pipelines, and big data processing with PySpark & Databricks</p>
+                </div>
+                
+                <div class="about-card fade-in">
+                    <div class="about-card-icon">🚀</div>
+                    <h3>Innovation Focus</h3>
+                    <p>Committed to leveraging cutting-edge technologies and best practices in data engineering</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <div class="section-header fade-in">
+            <div class="section-label">Technical Skills</div>
+            <h2 class="section-title">My Expertise</h2>
+            <p class="section-description">Comprehensive toolkit for modern data engineering solutions</p>
+        </div>
+
+        <div class="skills-grid">
+            <div class="skill-category fade-in">
+                <h3>
+                    <span class="skill-category-icon">⚡</span>
+                    Big Data Technologies
+                </h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">PySpark</span>
+                    <span class="skill-tag">Databricks</span>
+                    <span class="skill-tag">Hadoop</span>
+                    <span class="skill-tag">HDFS</span>
+                    <span class="skill-tag">Hive</span>
+                    <span class="skill-tag">Spark-SQL</span>
+                </div>
+            </div>
+
+            <div class="skill-category fade-in">
+                <h3>
+                    <span class="skill-category-icon">💻</span>
+                    Programming & Scripting
+                </h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">SQL</span>
+                    <span class="skill-tag">Shell Scripts</span>
+                    <span class="skill-tag">Sqoop</span>
+                </div>
+            </div>
+
+            <div class="skill-category fade-in">
+                <h3>
+                    <span class="skill-category-icon">🛠️</span>
+                    Tools & Platforms
+                </h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Databricks</span>
+                    <span class="skill-tag">CDSW</span>
+                    <span class="skill-tag">Hadoop Components</span>
+                    <span class="skill-tag">Bitbucket</span>
+                    <span class="skill-tag">Git</span>
+                    <span class="skill-tag">Oozie</span>
+                    <span class="skill-tag">Putty</span>
+                    <span class="skill-tag">WinSCP</span>
+                    <span class="skill-tag">Teradata SQL Assistant</span>
+                </div>
+            </div>
+
+            <div class="skill-category fade-in">
+                <h3>
+                    <span class="skill-category-icon">🖥️</span>
+                    Data & Systems
+                </h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">EDL</span>
+                    <span class="skill-tag">EDW</span>
+                    <span class="skill-tag">Windows</span>
+                    <span class="skill-tag">Linux</span>
+                    <span class="skill-tag">Hue</span>
+                    <span class="skill-tag">Impala</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience">
+        <div class="section-header fade-in">
+            <div class="section-label">Professional Journey</div>
+            <h2 class="section-title">Work Experience</h2>
+            <p class="section-description">Building data solutions across leading organizations</p>
+        </div>
+
+        <div class="experience-timeline">
+            <!-- Infosys -->
+            <div class="timeline-item fade-in">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="company-header">
+                        <div class="company-name">Infosys</div>
+                        <div class="duration">Apr 2025 - Present</div>
+                    </div>
+                    <div class="role">Senior Associate Consultant</div>
+                    <div class="project-info">Industry: Sportswear & Apparel</div>
+                    <div class="tech-stack">
+                        <span class="tech-badge">Databricks</span>
+                        <span class="tech-badge">PySpark</span>
+                        <span class="tech-badge">SQL</span>
+                    </div>
+                    <ul class="responsibilities">
+                        <li>Resolved critical bugs in existing scripts, eliminating data discrepancies and ensuring data integrity across tables</li>
+                        <li>Developed and implemented an automation script for daily workflow monitoring, significantly improving efficiency and reducing manual oversight</li>
+                        <li>Performed in-depth root cause analysis on workflow failures, resulting in the identification and remediation of critical system issues</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Scalability Engineers -->
+            <div class="timeline-item fade-in">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="company-header">
+                        <div class="company-name">Scalability Engineers</div>
+                        <div class="duration">Nov 2024 - Mar 2025</div>
+                    </div>
+                    <div class="role">Data Engineer</div>
+                    <div class="project-info">Industry: Financial Services</div>
+                    <div class="tech-stack">
+                        <span class="tech-badge">Databricks</span>
+                        <span class="tech-badge">PySpark</span>
+                        <span class="tech-badge">SQL</span>
+                        <span class="tech-badge">AWS S3</span>
+                    </div>
+                    <ul class="responsibilities">
+                        <li>Worked on silver-to-gold layer transformations using PySpark in Databricks, applying business logic to extract and transform data</li>
+                        <li>Loaded transformed data into the gold layer to build KPIs for internal audit team compliance with RBI regulatory guidelines</li>
+                        <li>Developed workflows to schedule batch data loads into tables, ensuring timely data processing</li>
+                        <li>Wrote CSV scripts to export data to S3 buckets for UAT testing and validation</li>
+                        <li>Set up auto mailers to send alerts for workflow triggers and KPI CSVs to relevant teams for review</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Accenture -->
+            <div class="timeline-item fade-in">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="company-header">
+                        <div class="company-name">Accenture</div>
+                        <div class="duration">May 2021 - Oct 2024</div>
+                    </div>
+                    <div class="role">Data Engineering, Management & Governance Analyst</div>
+                    <div class="project-info">Industry: Banking & Financial Services</div>
+                    <div class="tech-stack">
+                        <span class="tech-badge">PySpark</span>
+                        <span class="tech-badge">Hadoop</span>
+                        <span class="tech-badge">Shell Scripting</span>
+                        <span class="tech-badge">Hive</span>
+                        <span class="tech-badge">Hue</span>
+                        <span class="tech-badge">Impala</span>
+                        <span class="tech-badge">HDFS</span>
+                    </div>
+                    <ul class="responsibilities">
+                        <li>Actively participated in the development process, adhering to agile methodologies to ensure efficient code development</li>
+                        <li>Conducted data profiling, built functions to read CSV files or tables into dataframes and performed complex transformations using PySpark</li>
+                        <li>Focused on code quality by writing test cases, reviewing code, and engaging in end-to-end regression testing, validating PySpark outputs with Hive queries</li>
+                        <li>Stored project output in Hive tables and CSV files, and transferred these files to the landing zone via SFTP for downstream systems</li>
+                        <li>Contributed to Soft-Go Live, Main-Go Live, and deployment activities, while providing ongoing production support to ensure smooth operations and resolve issues promptly</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education">
+        <div class="section-header fade-in">
+            <div class="section-label">Education</div>
+            <h2 class="section-title">Academic Background</h2>
+        </div>
+
+        <div class="education-content">
+            <div class="education-card fade-in">
+                <div class="degree-icon">🎓</div>
+                <h3 class="degree">Bachelor of Technology in Computer Science and Engineering</h3>
+                <p class="college">Geethanjali College of Engineering and Technology</p>
+                <p class="edu-duration">June 2016 - October 2020</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="section-header fade-in">
+            <div class="section-label">Get In Touch</div>
+            <h2 class="section-title">Contact Me</h2>
+            <p class="section-description">Let's connect and discuss opportunities</p>
+        </div>
+
+        <div class="contact-container">
+            <div class="contact-grid">
+                <a href="mailto:poshithraja@gmail.com" class="contact-card fade-in">
+                    <div class="contact-icon">📧</div>
+                    <h3>Email</h3>
+                    <p>poshithraja@gmail.com</p>
+                </a>
+
+                <a href="tel:+918919393016" class="contact-card fade-in">
+                    <div class="contact-icon">📱</div>
+                    <h3>Phone</h3>
+                    <p>+91 8919393016</p>
+                </a>
+
+                <div class="contact-card fade-in">
+                    <div class="contact-icon">📍</div>
+                    <h3>Location</h3>
+                    <p>Hyderabad, India</p>
+                </div>
+            </div>
+
+            <form class="contact-form fade-in" onsubmit="handleFormSubmit(event)">
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Your Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    <span>Send Message</span>
+                    <span>→</span>
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#home" class="footer-link">Home</a>
+                <a href="#about" class="footer-link">About</a>
+                <a href="#skills" class="footer-link">Skills</a>
+                <a href="#experience" class="footer-link">Experience</a>
+                <a href="#contact" class="footer-link">Contact</a>
+            </div>
+            <p class="copyright">&copy; 2025 Poshith Raja Sikha. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -80px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Active nav link on scroll
+        window.addEventListener('scroll', () => {
+            let current = '';
+            const sections = document.querySelectorAll('section');
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.style.color = '';
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.style.color = 'var(--color-accent)';
+                }
+            });
+        });
+
+        // Form submission handler
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            const form = event.target;
+            const name = form.name.value;
+            const email = form.email.value;
+            const message = form.message.value;
+
+            alert(`Thank you for your message, ${name}! I'll get back to you at ${email} soon.`);
+            form.reset();
+        }
+    </script>
+</body>
+</html>
+
