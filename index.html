@@ -260,7 +260,7 @@ body {
 .nav a.active {
   color: var(--color-text);
 }
-
+    
 .mobile-menu-toggle {
   display: none;
   background: none;
@@ -268,7 +268,12 @@ body {
   font-size: 24px;
   cursor: pointer;
   color: var(--color-text);
+  
+  /* ADD THESE TWO LINES */
+  position: relative;
+  z-index: 2000; 
 }
+
 
 /* Main Content */
 .main {
@@ -888,4 +893,5 @@ body {
     });
   </script>
 </body>
+
 </html>
