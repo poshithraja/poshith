@@ -25,10 +25,6 @@
       --color-teal-600: rgba(29, 116, 128, 1);
       --color-teal-700: rgba(26, 104, 115, 1);
       --color-teal-800: rgba(41, 150, 161, 1);
-      --color-red-400: rgba(255, 84, 89, 1);
-      --color-red-500: rgba(192, 21, 47, 1);
-      --color-orange-400: rgba(230, 129, 97, 1);
-      --color-orange-500: rgba(168, 75, 47, 1);
 
       /* RGB versions for opacity control */
       --color-brown-600-rgb: 94, 82, 64;
@@ -94,7 +90,7 @@
       line-height: 1.8;
       font-size: 18px;
       -webkit-font-smoothing: antialiased;
-      overflow-x: hidden; /* Prevent horizontal scroll */
+      overflow-x: hidden;
     }
 
     /* Header */
@@ -104,19 +100,18 @@
       left: 0;
       right: 0;
       z-index: 1000;
-      background-color: transparent; /* Starts transparent */
+      background-color: transparent;
       border-bottom: 1px solid transparent;
       padding: 24px 80px;
       transition: all 0.3s ease;
     }
 
-    /* Header Scrolled State */
     .header.scrolled {
-      background-color: rgba(var(--color-background), 0.8); /* Semi-transparent */
-      backdrop-filter: blur(12px); /* Glass effect */
+      background-color: rgba(var(--color-background), 0.8);
+      backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--color-border);
-      padding: 16px 80px; /* Slightly smaller on scroll */
+      padding: 16px 80px;
     }
 
     .header-content {
@@ -156,7 +151,6 @@
       color: var(--color-text);
     }
     
-    /* Active indicator line */
     .nav a::after {
       content: '';
       position: absolute;
@@ -187,27 +181,24 @@
       padding-top: 80px;
     }
 
-    /* Animations Keyframes */
+    /* Animations */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(30px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Base Animation Class */
     .reveal-element {
-      opacity: 0; /* Start hidden */
+      opacity: 0;
       transform: translateY(30px);
       transition: opacity 0.8s var(--ease-out-cubic), transform 0.8s var(--ease-out-cubic);
     }
     
-    /* Triggered State */
     .visible .reveal-element,
     .reveal-element.visible {
       opacity: 1;
       transform: translateY(0);
     }
 
-    /* Stagger Delays */
     .delay-100 { transition-delay: 100ms; }
     .delay-200 { transition-delay: 200ms; }
     .delay-300 { transition-delay: 300ms; }
@@ -220,7 +211,7 @@
       padding: 120px 80px;
     }
 
-    /* Hero Section */
+    /* Hero */
     .hero {
       min-height: calc(100vh - 80px);
       display: flex;
@@ -236,7 +227,6 @@
       letter-spacing: -0.02em;
       margin-bottom: 24px;
       color: var(--color-text);
-      /* Force animation on load */
       animation: fadeUp 1s var(--ease-out-cubic) forwards;
       opacity: 0;
     }
@@ -247,7 +237,7 @@
       color: var(--color-text-secondary);
       margin-bottom: 40px;
       letter-spacing: -0.01em;
-      animation: fadeUp 1s var(--ease-out-cubic) 0.2s forwards; /* 0.2s delay */
+      animation: fadeUp 1s var(--ease-out-cubic) 0.2s forwards;
       opacity: 0;
     }
 
@@ -257,7 +247,7 @@
       color: var(--color-text-secondary);
       text-transform: uppercase;
       letter-spacing: 0.05em;
-      animation: fadeUp 1s var(--ease-out-cubic) 0.4s forwards; /* 0.4s delay */
+      animation: fadeUp 1s var(--ease-out-cubic) 0.4s forwards;
       opacity: 0;
     }
 
@@ -280,7 +270,7 @@
       display: block;
     }
 
-    /* About Section */
+    /* About */
     .about-content {
       max-width: 800px;
     }
@@ -299,11 +289,10 @@
     }
 
     .skill-category {
-      /* Interactive card effect */
       padding: 24px;
       border-radius: 12px;
       transition: transform 0.3s ease, background-color 0.3s ease;
-      margin: -24px; /* Offset padding to keep alignment */
+      margin: -24px;
     }
 
     .skill-category:hover {
@@ -328,22 +317,24 @@
       color: var(--color-text);
     }
 
-    /* Experience Section */
+    /* 
+       UPDATED: Experience Section 
+       Removed box borders, padding, and card-like hover effects
+    */
     .experience-item {
-      margin-bottom: 60px; /* Reduced margin */
-      padding: 40px;
-      border: 1px solid var(--color-border);
-      border-radius: 16px;
-      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+      margin-bottom: 80px; /* Increased margin for separation without boxes */
+      padding: 0; /* Removed padding */
+      border: none; /* Removed border */
       background-color: transparent;
+      /* Removed transition for box properties */
     }
 
-    /* Hover Effect for Experience Cards */
+    /* Removed box-shadow and border hover effects */
     .experience-item:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 30px -10px rgba(0,0,0,0.1);
-      border-color: var(--color-primary);
-      background-color: rgba(var(--color-teal-500-rgb), 0.02);
+      transform: none;
+      box-shadow: none;
+      border-color: transparent;
+      background-color: transparent;
     }
 
     .experience-header {
@@ -395,7 +386,7 @@
       letter-spacing: 0.05em;
       padding: 8px 16px;
       border: 1px solid var(--color-border);
-      border-radius: 20px; /* Rounded pills */
+      border-radius: 20px;
       color: var(--color-text-secondary);
       transition: all 0.2s ease;
     }
@@ -422,7 +413,7 @@
       color: var(--color-primary);
     }
 
-    /* Education Section */
+    /* Education */
     .education-card {
       max-width: 800px;
       padding: 60px;
@@ -462,7 +453,7 @@
       color: var(--color-text-secondary);
     }
 
-    /* Contact Section */
+    /* Contact */
     .contact-links {
       display: flex;
       flex-direction: column;
@@ -509,14 +500,14 @@
       display: block;
     }
     
-    /* Scroll Progress Bar */
+    /* Scroll Progress */
     .scroll-progress {
       position: fixed;
       top: 0;
       left: 0;
       width: 0%;
       height: 3px;
-      background: var(--color-white); /* Previously: var(--color-primary) */
+      background: var(--color-white);
       z-index: 2000;
       transition: width 0.1s;
     }
@@ -557,7 +548,13 @@
       .section-title { font-size: 40px; margin-bottom: 48px; }
       .about-text { font-size: 18px; margin-bottom: 48px; }
       .skills-grid { grid-template-columns: 1fr; gap: 40px; }
-      .experience-item { margin-bottom: 40px; padding: 24px; }
+      
+      /* UPDATED: Mobile experience adjustments */
+      .experience-item { 
+        margin-bottom: 60px; 
+        padding: 0; /* No padding on mobile either */
+      }
+      
       .experience-header { grid-template-columns: 1fr; gap: 24px; }
       .experience-meta { text-align: left; }
       .experience-company { font-size: 24px; }
@@ -589,14 +586,12 @@
   </header>
 
   <main class="main">
-    <!-- Hero Section -->
     <section id="hero" class="hero section visible">
       <h1 class="hero-name">Poshith Raja<br>Sikha</h1>
       <p class="hero-title">Data Engineer</p>
       <span class="hero-location">Hyderabad, India</span>
     </section>
 
-    <!-- About Section -->
     <section id="about" class="section">
       <h2 class="section-title reveal-element">About</h2>
       <div class="about-content">
@@ -609,7 +604,6 @@
 
         <span class="section-label reveal-element delay-200">Technical Skills</span>
         <div class="skills-grid">
-          <!-- Staggered animation for cards -->
           <div class="skill-category reveal-element delay-300">
             <h3>Big Data</h3>
             <ul class="skill-list">
@@ -659,11 +653,9 @@
       </div>
     </section>
 
-    <!-- Experience Section -->
     <section id="experience" class="section">
       <h2 class="section-title reveal-element">Experience</h2>
 
-      <!-- Experience Items with stagger -->
       <div class="experience-item reveal-element delay-100">
         <div class="experience-header">
           <div>
@@ -749,7 +741,6 @@
       </div>
     </section>
 
-    <!-- Education Section -->
     <section id="education" class="section">
       <h2 class="section-title reveal-element">Education</h2>
       <div class="education-card reveal-element delay-100">
@@ -760,7 +751,6 @@
       </div>
     </section>
 
-    <!-- Contact Section -->
     <section id="contact" class="section">
       <h2 class="section-title reveal-element">Contact</h2>
       <div class="contact-links reveal-element delay-100">
@@ -778,27 +768,23 @@
     const progressBar = document.getElementById('progressBar');
     
     window.addEventListener('scroll', () => {
-      // Header blur
       if (window.scrollY > 50) {
         header.classList.add('scrolled');
       } else {
         header.classList.remove('scrolled');
       }
       
-      // Progress bar
       const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
       const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
       const scrolled = (winScroll / height) * 100;
       progressBar.style.width = scrolled + "%";
     });
 
-    // Smooth scroll and active nav
     const sections = document.querySelectorAll('.section');
     const navLinks = document.querySelectorAll('.nav a');
 
-    // Intersection Observer for fade-in animations
     const observerOptions = {
-      threshold: 0.15, // Wait until 15% of section is visible
+      threshold: 0.15,
       rootMargin: '0px 0px -50px 0px'
     };
 
@@ -806,12 +792,9 @@
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
-          
-          // Trigger children animations
           const children = entry.target.querySelectorAll('.reveal-element');
           children.forEach(child => child.classList.add('visible'));
           
-          // Update active nav link
           const id = entry.target.getAttribute('id');
           navLinks.forEach(link => {
             link.classList.remove('active');
@@ -827,7 +810,6 @@
       observer.observe(section);
     });
 
-    // Mobile menu toggle
     const menuToggle = document.getElementById('menuToggle');
     const nav = document.getElementById('nav');
 
@@ -836,7 +818,6 @@
       menuToggle.textContent = nav.classList.contains('active') ? '✕' : '☰';
     });
 
-    // Close mobile menu on link click
     navLinks.forEach(link => {
       link.addEventListener('click', () => {
         nav.classList.remove('active');
@@ -846,4 +827,3 @@
   </script>
 </body>
 </html>
-
