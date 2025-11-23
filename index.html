@@ -33,6 +33,7 @@
       --color-slate-500-rgb: 98, 108, 113;
 
       /* Semantic Color Tokens (Light Mode) */
+      --color-background-rgb: 252, 252, 249;
       --color-background: var(--color-cream-50);
       --color-surface: var(--color-cream-100);
       --color-text: var(--color-slate-900);
@@ -58,6 +59,7 @@
         --color-teal-300-rgb: 50, 184, 198;
         --color-gray-300-rgb: 167, 169, 169;
         
+        --color-background-rgb: 31, 33, 33;
         --color-background: var(--color-charcoal-700);
         --color-surface: var(--color-charcoal-800);
         --color-text: var(--color-gray-200);
@@ -100,17 +102,42 @@
       left: 0;
       right: 0;
       z-index: 1000;
-      background-color: transparent;
-      border-bottom: 1px solid transparent;
+      /* Removed background/backdrop from here to fix containing block bug */
+      background-color: transparent; 
       padding: 24px 80px;
       transition: all 0.3s ease;
     }
 
-    .header.scrolled {
-      background-color: rgba(var(--color-background), 0.8);
+    /* 
+       FIX: Apply the background and blur to a pseudo-element.
+       This prevents the header from trapping the fixed mobile menu.
+    */
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: -1; /* Stays behind the logo/nav */
+      
+      /* The Frosted Glass Styles */
+      background-color: rgba(var(--color-background-rgb), 0.8);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--color-border);
+      
+      /* Hidden by default */
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    /* When scrolled, we just show the pseudo-element */
+    .header.scrolled::before {
+      opacity: 1;
+    }
+
+    .header.scrolled {
       padding: 16px 80px;
     }
 
@@ -120,6 +147,8 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      position: relative; /* Ensures content sits above the ::before background */
+      z-index: 1;
     }
 
     .logo {
@@ -317,19 +346,14 @@
       color: var(--color-text);
     }
 
-    /* 
-       UPDATED: Experience Section 
-       Removed box borders, padding, and card-like hover effects
-    */
+    /* Experience Section */
     .experience-item {
-      margin-bottom: 80px; /* Increased margin for separation without boxes */
-      padding: 0; /* Removed padding */
-      border: none; /* Removed border */
+      margin-bottom: 80px;
+      padding: 0;
+      border: none;
       background-color: transparent;
-      /* Removed transition for box properties */
     }
 
-    /* Removed box-shadow and border hover effects */
     .experience-item:hover {
       transform: none;
       box-shadow: none;
@@ -523,6 +547,7 @@
         left: 0;
         right: 0;
         bottom: 0;
+        /* Solid opaque background is CRITICAL here */
         background-color: var(--color-background);
         flex-direction: column;
         justify-content: center;
@@ -531,6 +556,9 @@
         display: none;
         opacity: 0;
         transition: opacity 0.3s ease;
+        z-index: 2001; /* Ensure it sits on top of everything */
+        height: 100vh; /* Fallback */
+        height: 100dvh; /* Full dynamic height */
       }
 
       .nav.active {
@@ -549,10 +577,9 @@
       .about-text { font-size: 18px; margin-bottom: 48px; }
       .skills-grid { grid-template-columns: 1fr; gap: 40px; }
       
-      /* UPDATED: Mobile experience adjustments */
       .experience-item { 
         margin-bottom: 60px; 
-        padding: 0; /* No padding on mobile either */
+        padding: 0; 
       }
       
       .experience-header { grid-template-columns: 1fr; gap: 24px; }
@@ -815,12 +842,21 @@
 
     menuToggle.addEventListener('click', () => {
       nav.classList.toggle('active');
-      menuToggle.textContent = nav.classList.contains('active') ? '✕' : '☰';
+      
+      // Toggle body scroll lock to prevent background scrolling
+      if (nav.classList.contains('active')) {
+        document.body.style.overflow = 'hidden';
+        menuToggle.textContent = '✕';
+      } else {
+        document.body.style.overflow = '';
+        menuToggle.textContent = '☰';
+      }
     });
 
     navLinks.forEach(link => {
       link.addEventListener('click', () => {
         nav.classList.remove('active');
+        document.body.style.overflow = ''; // Unlock scroll on click
         menuToggle.textContent = '☰';
       });
     });
