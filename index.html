@@ -16,7 +16,7 @@
   <meta property="og:url" content="https://poshith.com/">
   <meta property="og:title" content="Poshith Raja Sikha — Data Engineer">
   <meta property="og:description" content="Building scalable data solutions with PySpark and Databricks. View my portfolio and experience.">
-  <meta property="og:image" content="https://poshith.com/og-image.jpg"> <!-- Replace with actual image URL -->
+  <meta property="og:image" content="https://poshith.com/og-image.jpg">
 
   <!-- Structured Data (JSON-LD) -->
   <script type="application/ld+json">
@@ -254,7 +254,7 @@
 
     .main {
       padding-top: 80px;
-      padding-bottom: 60px; /* Space for footer */
+      padding-bottom: 60px;
     }
 
     /* Animations */
@@ -267,7 +267,6 @@
       opacity: 0;
       transform: translateY(30px);
       transition: opacity 0.8s var(--ease-out-cubic), transform 0.8s var(--ease-out-cubic);
-      /* Will-change hint for performance */
       will-change: opacity, transform;
     }
     
@@ -549,7 +548,7 @@
       display: block;
     }
 
-    /* Footer / Bottom Bar */
+    /* Footer */
     .footer {
       background-color: var(--color-background);
       border-top: 1px solid var(--color-border);
@@ -571,14 +570,14 @@
       align-items: center;
     }
     
-    /* Scroll Progress */
+    /* Scroll Progress - WHITE */
     .scroll-progress {
       position: fixed;
       top: 0;
       left: 0;
       width: 0%;
       height: 3px;
-      background: var(--color-primary); /* Changed to primary color for better visibility */
+      background: var(--color-white); /* Updated to White */
       z-index: 2000;
       transition: width 0.1s;
     }
@@ -587,7 +586,14 @@
     @media (max-width: 768px) {
       .header { padding: 20px 24px; }
       .header.scrolled { padding: 16px 24px; }
-      .footer { padding: 24px; flex-direction: column; gap: 12px; text-align: center; }
+      
+      /* UPDATED: Footer Mobile Layout */
+      .footer { padding: 32px 24px; }
+      .footer-content {
+        flex-direction: column; /* Stacks items vertically */
+        gap: 16px;
+        text-align: center;
+      }
 
       .nav {
         position: fixed;
@@ -916,4 +922,3 @@
   </script>
 </body>
 </html>
-
