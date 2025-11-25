@@ -3,7 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Poshith Raja Sikha — Data Engineer</title>
+  
+  <!-- SEO: Meta Tags -->
+  <title>Poshith Raja Sikha — Data Engineer | PySpark & Databricks Specialist</title>
+  <meta name="description" content="Senior Data Engineer based in Hyderabad with 4+ years of experience in PySpark, Databricks, and Big Data pipelines for Financial Services and Retail sectors.">
+  <meta name="keywords" content="Poshith Raja Sikha, Data Engineer, PySpark Developer, Databricks, Big Data, ETL, Hadoop, SQL, Python, Hyderabad">
+  <meta name="author" content="Poshith Raja Sikha">
+  <link rel="canonical" href="https://poshith.com/">
+
+  <!-- SEO: Open Graph / Social Sharing -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://poshith.com/">
+  <meta property="og:title" content="Poshith Raja Sikha — Data Engineer">
+  <meta property="og:description" content="Building scalable data solutions with PySpark and Databricks. View my portfolio and experience.">
+  <meta property="og:image" content="https://poshith.com/og-image.jpg"> <!-- Replace with actual image URL -->
+
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Poshith Raja Sikha",
+      "jobTitle": "Data Engineer",
+      "url": "https://poshith.com",
+      "email": "poshithraja@gmail.com",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Hyderabad",
+        "addressCountry": "India"
+      },
+      "alumniOf": "Geethanjali College of Engineering and Technology",
+      "knowsAbout": ["PySpark", "Databricks", "Big Data", "Hadoop", "SQL", "ETL", "AWS"]
+    }
+  </script>
+
   <style>
     :root {
       /* Primitive Color Tokens */
@@ -69,9 +102,11 @@
       }
     }
 
+    /* Performance: Font Display Swap */
     @font-face {
       font-family: 'FKGroteskNeue';
       src: url('https://r2cdn.perplexity.ai/fonts/FKGroteskNeue.woff2') format('woff2');
+      font-display: swap;
     }
 
     * {
@@ -93,6 +128,26 @@
       font-size: 18px;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
+    }
+
+    /* Performance: Rendering Optimization */
+    .section {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 120px 80px;
+      /* Improves rendering performance for off-screen content */
+      content-visibility: auto;
+      contain-intrinsic-size: 800px; 
+    }
+    
+    /* Override for Hero to ensure it's always visible immediately */
+    .hero {
+      content-visibility: visible;
+      min-height: calc(100vh - 80px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 160px 80px;
     }
 
     /* Header */
@@ -186,10 +241,6 @@
       width: 100%;
     }
 
-    /* 
-       UPDATED: Z-Index Fix 
-       Increased z-index to 2002 so it sits ON TOP of the mobile menu overlay (which is 2001)
-    */
     .mobile-menu-toggle {
       display: none;
       background: none;
@@ -198,11 +249,12 @@
       cursor: pointer;
       color: var(--color-text);
       position: relative;
-      z-index: 2002; /* CHANGED from 2000 to 2002 */
+      z-index: 2002;
     }
 
     .main {
       padding-top: 80px;
+      padding-bottom: 60px; /* Space for footer */
     }
 
     /* Animations */
@@ -215,6 +267,8 @@
       opacity: 0;
       transform: translateY(30px);
       transition: opacity 0.8s var(--ease-out-cubic), transform 0.8s var(--ease-out-cubic);
+      /* Will-change hint for performance */
+      will-change: opacity, transform;
     }
     
     .visible .reveal-element,
@@ -229,21 +283,7 @@
     .delay-400 { transition-delay: 400ms; }
     .delay-500 { transition-delay: 500ms; }
 
-    .section {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 120px 80px;
-    }
-
-    /* Hero */
-    .hero {
-      min-height: calc(100vh - 80px);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 160px 80px;
-    }
-
+    /* Typography & Layout Elements */
     .hero-name {
       font-size: 96px;
       font-weight: var(--font-weight-bold);
@@ -294,11 +334,8 @@
       display: block;
     }
 
-    /* About */
-    .about-content {
-      max-width: 800px;
-    }
-
+    /* About & Skills */
+    .about-content { max-width: 800px; }
     .about-text {
       font-size: 24px;
       line-height: 1.8;
@@ -341,18 +378,11 @@
       color: var(--color-text);
     }
 
-    /* Experience Section */
+    /* Experience */
     .experience-item {
       margin-bottom: 80px;
       padding: 0;
       border: none;
-      background-color: transparent;
-    }
-
-    .experience-item:hover {
-      transform: none;
-      box-shadow: none;
-      border-color: transparent;
       background-color: transparent;
     }
 
@@ -518,6 +548,28 @@
       margin-bottom: 12px;
       display: block;
     }
+
+    /* Footer / Bottom Bar */
+    .footer {
+      background-color: var(--color-background);
+      border-top: 1px solid var(--color-border);
+      padding: 24px 80px;
+      font-size: 14px;
+      color: var(--color-text-secondary);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+    }
+
+    .footer-content {
+      max-width: 1400px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
     
     /* Scroll Progress */
     .scroll-progress {
@@ -526,7 +578,7 @@
       left: 0;
       width: 0%;
       height: 3px;
-      background: var(--color-white);
+      background: var(--color-primary); /* Changed to primary color for better visibility */
       z-index: 2000;
       transition: width 0.1s;
     }
@@ -535,6 +587,7 @@
     @media (max-width: 768px) {
       .header { padding: 20px 24px; }
       .header.scrolled { padding: 16px 24px; }
+      .footer { padding: 24px; flex-direction: column; gap: 12px; text-align: center; }
 
       .nav {
         position: fixed;
@@ -609,7 +662,7 @@
   <main class="main">
     <section id="hero" class="hero section visible">
       <h1 class="hero-name">Poshith Raja<br>Sikha</h1>
-      <p class="hero-title">Data Engineer</p>
+      <h2 class="hero-title">Data Engineer</h2>
       <span class="hero-location">Hyderabad, India</span>
     </section>
 
@@ -782,6 +835,13 @@
     </section>
   </main>
 
+  <footer class="footer">
+    <div class="footer-content">
+      <p>&copy; 2025 Poshith Raja Sikha. All rights reserved.</p>
+      <p>Designed & Built in Hyderabad</p>
+    </div>
+  </footer>
+
   <script>
     // Header Scroll Effect
     const header = document.getElementById('header');
@@ -856,4 +916,3 @@
   </script>
 </body>
 </html>
-
