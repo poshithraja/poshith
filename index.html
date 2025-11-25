@@ -42,28 +42,38 @@
       /* Primitive Color Tokens */
       --color-white: rgba(255, 255, 255, 1);
       --color-black: rgba(0, 0, 0, 1);
-      
-      /* Grays for Dark Mode */
-      --color-gray-200: rgba(229, 229, 229, 1);
-      --color-gray-400: rgba(163, 163, 163, 1);
-      --color-gray-800: rgba(38, 38, 38, 1);
-      --color-gray-900: rgba(23, 23, 23, 1);
+      --color-cream-50: rgba(252, 252, 249, 1);
+      --color-cream-100: rgba(255, 255, 253, 1);
+      --color-gray-200: rgba(245, 245, 245, 1);
+      --color-gray-300: rgba(167, 169, 169, 1);
+      --color-gray-400: rgba(119, 124, 124, 1);
+      --color-slate-500: rgba(98, 108, 113, 1);
+      --color-brown-600: rgba(94, 82, 64, 1);
+      --color-charcoal-700: rgba(31, 33, 33, 1);
+      --color-charcoal-800: rgba(38, 40, 40, 1);
+      --color-slate-900: rgba(19, 52, 59, 1);
+      --color-teal-300: rgba(50, 184, 198, 1);
+      --color-teal-400: rgba(45, 166, 178, 1);
+      --color-teal-500: rgba(33, 128, 141, 1);
+      --color-teal-600: rgba(29, 116, 128, 1);
+      --color-teal-700: rgba(26, 104, 115, 1);
+      --color-teal-800: rgba(41, 150, 161, 1);
 
-      /* Accents */
-      --color-teal-300: rgba(94, 234, 212, 1); /* Bright Teal for Dark Bg */
-      --color-teal-500: rgba(20, 184, 166, 1);
+      /* RGB versions for opacity control */
+      --color-brown-600-rgb: 94, 82, 64;
+      --color-teal-500-rgb: 33, 128, 141;
+      --color-slate-900-rgb: 19, 52, 59;
+      --color-slate-500-rgb: 98, 108, 113;
 
-      /* Semantic Color Tokens (DARK MODE DEFAULT) */
-      --color-background-rgb: 0, 0, 0; /* Pure Black RGB for frosted glass calc */
-      --color-background: var(--color-black);
-      --color-surface: var(--color-gray-900);
-      
-      --color-text: var(--color-white);
-      --color-text-secondary: var(--color-gray-400);
-      
-      --color-primary: var(--color-teal-300);
-      --color-border: rgba(255, 255, 255, 0.2);
-      --color-focus-ring: rgba(94, 234, 212, 0.4);
+      /* Semantic Color Tokens (Light Mode) */
+      --color-background-rgb: 252, 252, 249;
+      --color-background: var(--color-cream-50);
+      --color-surface: var(--color-cream-100);
+      --color-text: var(--color-slate-900);
+      --color-text-secondary: var(--color-slate-500);
+      --color-primary: var(--color-teal-500);
+      --color-border: rgba(var(--color-brown-600-rgb), 0.2);
+      --color-focus-ring: rgba(var(--color-teal-500-rgb), 0.4);
       
       /* Typography */
       --font-family-base: "FKGroteskNeue", "Geist", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -74,6 +84,22 @@
 
       /* Animation */
       --ease-out-cubic: cubic-bezier(0.215, 0.61, 0.355, 1);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --color-gray-400-rgb: 119, 124, 124;
+        --color-teal-300-rgb: 50, 184, 198;
+        --color-gray-300-rgb: 167, 169, 169;
+        
+        --color-background-rgb: 31, 33, 33;
+        --color-background: var(--color-charcoal-700);
+        --color-surface: var(--color-charcoal-800);
+        --color-text: var(--color-gray-200);
+        --color-text-secondary: rgba(var(--color-gray-300-rgb), 0.7);
+        --color-primary: var(--color-teal-300);
+        --color-border: rgba(var(--color-gray-400-rgb), 0.3);
+      }
     }
 
     /* Performance: Font Display Swap */
@@ -109,6 +135,7 @@
       max-width: 1400px;
       margin: 0 auto;
       padding: 120px 80px;
+      /* Improves rendering performance for off-screen content */
       content-visibility: auto;
       contain-intrinsic-size: 800px; 
     }
@@ -329,7 +356,7 @@
     }
 
     .skill-category:hover {
-      background-color: rgba(94, 234, 212, 0.05); /* Teal tint */
+      background-color: rgba(var(--color-teal-500-rgb), 0.05);
       transform: translateY(-5px);
     }
 
@@ -445,7 +472,7 @@
     
     .education-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 10px 30px -10px rgba(255,255,255,0.05);
+      box-shadow: 0 10px 30px -10px rgba(0,0,0,0.1);
       border-color: var(--color-primary);
     }
 
@@ -550,7 +577,7 @@
       left: 0;
       width: 0%;
       height: 3px;
-      background: var(--color-white);
+      background: var(--color-white); /* Updated to White */
       z-index: 2000;
       transition: width 0.1s;
     }
@@ -560,10 +587,10 @@
       .header { padding: 20px 24px; }
       .header.scrolled { padding: 16px 24px; }
       
-      /* Footer Mobile Layout */
+      /* UPDATED: Footer Mobile Layout */
       .footer { padding: 32px 24px; }
       .footer-content {
-        flex-direction: column;
+        flex-direction: column; /* Stacks items vertically */
         gap: 16px;
         text-align: center;
       }
@@ -816,8 +843,8 @@
 
   <footer class="footer">
     <div class="footer-content">
-      <p>&copy; 2025 Poshith Raja Sikha. All rights reserved.</p>
       <p>Weaving narratives from raw data with PySpark.</p>
+      <p>&copy; 2025 Poshith Raja Sikha. All rights reserved.</p>
     </div>
   </footer>
 
@@ -895,3 +922,4 @@
   </script>
 </body>
 </html>
+
