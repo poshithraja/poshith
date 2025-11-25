@@ -129,6 +129,83 @@
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
     }
+    
+    /* --- PRELOADER STYLES START --- */
+    #preloader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: var(--color-background);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transition: opacity 0.6s var(--ease-out-cubic), visibility 0.6s var(--ease-out-cubic);
+    }
+
+    .loader-content {
+      text-align: center;
+    }
+
+    .loader-text {
+      font-family: var(--font-family-mono);
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--color-text);
+      margin-bottom: 16px;
+      display: inline-block;
+    }
+
+    /* Blinking cursor effect */
+    .loader-cursor {
+      display: inline-block;
+      width: 8px;
+      height: 14px;
+      background-color: var(--color-primary);
+      animation: blink 1s step-end infinite;
+      vertical-align: middle;
+      margin-left: 4px;
+    }
+
+    .loader-progress {
+      width: 200px;
+      height: 2px;
+      background-color: var(--color-border);
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .loader-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 0%;
+      background-color: var(--color-primary);
+      animation: load 2s var(--ease-out-cubic) forwards;
+    }
+
+    #preloader.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    @keyframes load {
+      0% { width: 0%; }
+      50% { width: 60%; }
+      100% { width: 100%; }
+    }
+    /* --- PRELOADER STYLES END --- */
 
     /* Performance: Rendering Optimization */
     .section {
@@ -648,6 +725,17 @@
   </style>
 </head>
 <body>
+  <!-- START PRELOADER -->
+  <div id="preloader">
+    <div class="loader-content">
+      <span class="loader-text">Data Engineer Loading<span class="loader-cursor"></span></span>
+      <div class="loader-progress">
+        <div class="loader-bar"></div>
+      </div>
+    </div>
+  </div>
+  <!-- END PRELOADER -->
+
   <div class="scroll-progress" id="progressBar"></div>
 
   <header class="header" id="header">
@@ -849,6 +937,21 @@
   </footer>
 
   <script>
+    // --- PRELOADER SCRIPT START ---
+    // This script handles the fading out of the preloader once the page loads
+    window.addEventListener('load', () => {
+      const preloader = document.getElementById('preloader');
+      // Small timeout to ensure the animation is seen even on fast connections
+      setTimeout(() => {
+        preloader.classList.add('hidden');
+        // Optional: remove from DOM after transition to keep structure clean
+        setTimeout(() => {
+          preloader.style.display = 'none';
+        }, 600); // Matches the CSS transition time
+      }, 2000); // Wait 2 seconds before hiding (adjust this value as needed)
+    });
+    // --- PRELOADER SCRIPT END ---
+
     // Header Scroll Effect
     const header = document.getElementById('header');
     const progressBar = document.getElementById('progressBar');
@@ -922,4 +1025,3 @@
   </script>
 </body>
 </html>
-
