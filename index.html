@@ -137,7 +137,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: var(--color-background);
+      background-color: rgba(var(--color-slate-900-rgb), 0.96);
       z-index: 9999;
       display: flex;
       flex-direction: column;
@@ -150,44 +150,24 @@
       text-align: center;
     }
 
+    /* White circular loading symbol */
+    .loader-spinner {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      border: 4px solid rgba(255, 255, 255, 0.25);
+      border-top-color: var(--color-white);
+      animation: spin 1s linear infinite;
+      margin: 0 auto 20px auto;
+    }
+
     .loader-text {
       font-family: var(--font-family-mono);
       font-size: 14px;
       text-transform: uppercase;
       letter-spacing: 0.2em;
-      color: var(--color-text);
-      margin-bottom: 16px;
-      display: inline-block;
-    }
-
-    /* Blinking cursor effect */
-    .loader-cursor {
-      display: inline-block;
-      width: 8px;
-      height: 14px;
-      background-color: var(--color-primary);
-      animation: blink 1s step-end infinite;
-      vertical-align: middle;
-      margin-left: 4px;
-    }
-
-    .loader-progress {
-      width: 200px;
-      height: 2px;
-      background-color: var(--color-border);
-      margin: 0 auto;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .loader-bar {
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 0%;
-      background-color: var(--color-primary);
-      animation: load 2s var(--ease-out-cubic) forwards;
+      color: var(--color-white);
+      opacity: 0.9;
     }
 
     #preloader.hidden {
@@ -195,15 +175,9 @@
       visibility: hidden;
     }
 
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0; }
-    }
-
-    @keyframes load {
-      0% { width: 0%; }
-      50% { width: 60%; }
-      100% { width: 100%; }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
     /* --- PRELOADER STYLES END --- */
 
@@ -728,10 +702,8 @@
   <!-- START PRELOADER -->
   <div id="preloader">
     <div class="loader-content">
-      <span class="loader-text">Data Engineer Loading<span class="loader-cursor"></span></span>
-      <div class="loader-progress">
-        <div class="loader-bar"></div>
-      </div>
+      <div class="loader-spinner"></div>
+      <span class="loader-text">Data engineer profile loading</span>
     </div>
   </div>
   <!-- END PRELOADER -->
@@ -944,7 +916,7 @@
       // Small timeout to ensure the animation is seen even on fast connections
       setTimeout(() => {
         preloader.classList.add('hidden');
-        // Optional: remove from DOM after transition to keep structure clean
+        // Remove from DOM after transition to keep structure clean
         setTimeout(() => {
           preloader.style.display = 'none';
         }, 600); // Matches the CSS transition time
