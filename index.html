@@ -130,7 +130,7 @@
       overflow-x: hidden;
     }
 
-    /* --- LOCK SCREEN STYLES (NEW) --- */
+    /* --- LOCK SCREEN STYLES --- */
     #lock-screen {
       position: fixed;
       top: 0;
@@ -138,7 +138,7 @@
       width: 100%;
       height: 100%;
       background-color: var(--color-background);
-      z-index: 10000; /* Higher than preloader */
+      z-index: 10000; /* Topmost layer */
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -220,7 +220,7 @@
       height: 20px;
     }
     
-    /* --- PRELOADER STYLES (UPDATED) --- */
+    /* --- PRELOADER STYLES --- */
     #preloader {
       position: fixed;
       top: 0;
@@ -228,8 +228,8 @@
       width: 100%;
       height: 100%;
       background-color: var(--color-background);
-      z-index: 9999;
-      display: none; /* MODIFIED: Hidden by default, shown after unlock */
+      z-index: 9999; /* Layer BELOW lock screen but ABOVE website */
+      display: none; /* Start hidden to prevent blocking if js fails, but we enable it via JS */
       flex-direction: column;
       justify-content: center;
       align-items: center;
@@ -269,7 +269,6 @@
       overflow: hidden;
     }
 
-    /* MODIFIED: Progress Bar - Animation now triggered via class */
     .loader-bar {
       position: absolute;
       top: 0;
@@ -277,10 +276,9 @@
       height: 100%;
       width: 0%;
       background-color: var(--color-text);
-      /* Animation removed from here, added to .active state below */
     }
     
-    /* NEW: Only animate when the 'active' class is added */
+    /* Animate only when active class is added */
     .loader-content.active .loader-bar {
       animation: load 2s var(--ease-out-cubic) forwards;
     }
@@ -822,7 +820,7 @@
 </head>
 <body>
 
-  <!-- START LOCK SCREEN (NEW) -->
+  <!-- START LOCK SCREEN -->
   <div id="lock-screen">
     <div class="lock-content">
       <div class="lock-title">Authentication Required</div>
@@ -835,7 +833,7 @@
   </div>
   <!-- END LOCK SCREEN -->
 
-  <!-- START PRELOADER (Starts hidden, triggers after unlock) -->
+  <!-- START PRELOADER (Hidden by default, Activated by JS) -->
   <div id="preloader">
     <div class="loader-content">
       <span class="loader-text">Poshith's Portfolio Loading<span class="loader-cursor"></span></span>
@@ -1047,8 +1045,7 @@
   </footer>
 
   <script>
-    // --- PASSKEY & PRELOADER SCRIPT START ---
-    // Define variables
+    // --- PASSKEY & PRELOADER LOGIC ---
     const lockScreen = document.getElementById('lock-screen');
     const passInput = document.getElementById('passkey');
     const submitBtn = document.getElementById('submit-pass');
@@ -1056,32 +1053,29 @@
     const preloader = document.getElementById('preloader');
     const loaderContent = document.querySelector('.loader-content');
 
-    // ******************************************
-    // CHANGE YOUR PASSKEY HERE
-    // ******************************************
+    // DEFAULT PASSKEY
     const CORRECT_PASSKEY = "2025"; 
-    // ******************************************
 
     function handleLogin() {
       const enteredPass = passInput.value;
 
       if (enteredPass === CORRECT_PASSKEY) {
-        // 1. Unlock: Fade out lock screen
+        // 1. ACTIVATE PRELOADER IMMEDIATELY (Behind Lock Screen)
+        // This ensures when lock screen fades, user sees preloader, not the website.
+        preloader.style.display = 'flex';
+        preloader.style.opacity = '1';
+
+        // 2. Fade out lock screen
         lockScreen.style.opacity = '0';
         
+        // 3. Wait for Lock Screen fade to complete (600ms)
         setTimeout(() => {
           lockScreen.style.display = 'none';
 
-          // 2. Start Loading: Show preloader
-          preloader.style.display = 'flex';
-          
-          // Trigger reflow to ensure animation plays
-          void preloader.offsetWidth; 
-          
-          // Start animation via class
+          // 4. Start Loading Animation (Red Bar)
           loaderContent.classList.add('active');
 
-          // 3. Finish Loading: Hide preloader after 2.3s (matches your original timing)
+          // 5. Finish Loading after animation (2.3s total)
           setTimeout(() => {
             preloader.classList.add('hidden');
             setTimeout(() => {
@@ -1089,7 +1083,7 @@
             }, 600);
           }, 2300);
 
-        }, 600); // Wait for lock screen fade out
+        }, 600);
 
       } else {
         // Error Handling
@@ -1097,7 +1091,6 @@
         passInput.style.borderColor = '#ef4444';
         passInput.value = "";
         
-        // Reset error state after 2 seconds
         setTimeout(() => {
           lockError.style.opacity = '0';
           passInput.style.borderColor = '';
@@ -1105,14 +1098,13 @@
       }
     }
 
-    // Event Listeners for click and Enter key
     submitBtn.addEventListener('click', handleLogin);
     passInput.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') handleLogin();
     });
-    // --- PASSKEY & PRELOADER SCRIPT END ---
+    // --- END LOGIC ---
 
-    // Header Scroll Effect
+    // Scroll & Intersection Logic
     const header = document.getElementById('header');
     const progressBar = document.getElementById('progressBar');
     
@@ -1164,7 +1156,6 @@
 
     menuToggle.addEventListener('click', () => {
       nav.classList.toggle('active');
-      
       if (nav.classList.contains('active')) {
         document.body.style.overflow = 'hidden';
         menuToggle.textContent = '✕';
