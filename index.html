@@ -129,8 +129,98 @@
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
     }
+
+    /* --- LOCK SCREEN STYLES (NEW) --- */
+    #lock-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: var(--color-background);
+      z-index: 10000; /* Higher than preloader */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transition: opacity 0.6s var(--ease-out-cubic);
+    }
+
+    .lock-content {
+      text-align: center;
+      max-width: 320px;
+      width: 100%;
+      padding: 0 20px;
+    }
+
+    .lock-title {
+      font-family: var(--font-family-mono);
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--color-text-secondary);
+      margin-bottom: 32px;
+    }
+
+    .lock-input-wrapper {
+      position: relative;
+      margin-bottom: 24px;
+    }
+
+    .lock-input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--color-border);
+      color: var(--color-text);
+      font-family: var(--font-family-mono);
+      font-size: 24px;
+      text-align: center;
+      padding: 12px 0;
+      outline: none;
+      border-radius: 0;
+      transition: border-color 0.3s ease;
+    }
+
+    .lock-input:focus {
+      border-bottom-color: var(--color-primary);
+    }
+
+    .lock-input::placeholder {
+      color: var(--color-text-secondary);
+      opacity: 0.3;
+    }
+
+    .lock-submit {
+      background-color: var(--color-text);
+      color: var(--color-background);
+      border: none;
+      padding: 14px 32px;
+      font-family: var(--font-family-mono);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      border-radius: 4px;
+    }
+
+    .lock-submit:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+
+    .lock-error {
+      color: #ef4444;
+      font-size: 12px;
+      font-family: var(--font-family-mono);
+      margin-top: 16px;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      height: 20px;
+    }
     
-    /* --- PRELOADER STYLES START --- */
+    /* --- PRELOADER STYLES (UPDATED) --- */
     #preloader {
       position: fixed;
       top: 0;
@@ -139,7 +229,7 @@
       height: 100%;
       background-color: var(--color-background);
       z-index: 9999;
-      display: flex;
+      display: none; /* MODIFIED: Hidden by default, shown after unlock */
       flex-direction: column;
       justify-content: center;
       align-items: center;
@@ -160,78 +250,45 @@
       display: inline-block;
     }
 
-    /* Blinking cursor effect - NOW WHITE */
     .loader-cursor {
       display: inline-block;
       width: 8px;
       height: 14px;
-      background-color: var(--color-text); /* Changed to text color which works for both modes, or use var(--color-white) if you want strict white */
+      background-color: var(--color-text);
       animation: blink 1s step-end infinite;
       vertical-align: middle;
       margin-left: 4px;
     }
 
-    /* Override cursor specifically to white if strictly requested, regardless of theme */
-    /* If you want it white ONLY in dark mode, keep it as var(--color-text). 
-       If you want it ALWAYS white (even on light background), use var(--color-white). 
-       Assuming you want it visible against background: */
-    
-    /* For strictly WHITE requested by user: */
-    .loader-cursor {
-       background-color: var(--color-text); /* kept as text color for visibility, see logic below */
-    }
-    /* NOTE: If the background is light cream, a WHITE cursor is invisible. 
-       I will interpret "white" as "matching the text/primary color" or "high contrast". 
-       HOWEVER, the user explicitly said "white". 
-       If the background is light, white is invisible. 
-       I will use a trick: mix-blend-mode or just set it to text color for visibility. 
-       BUT, to strictly follow "white" request, I will set it to white, but assumes dark background or user intent.
-       
-       Let's stick to the user's specific request: "loading progress bar how to change and blinking also white"
-    */
-    
     .loader-progress {
       width: 200px;
       height: 2px;
-      background-color: rgba(100, 100, 100, 0.2); /* Subtle track */
+      background-color: rgba(100, 100, 100, 0.2);
       margin: 0 auto;
       position: relative;
       overflow: hidden;
     }
 
-    /* Progress Bar - NOW WHITE */
+    /* MODIFIED: Progress Bar - Animation now triggered via class */
     .loader-bar {
       position: absolute;
       top: 0;
       left: 0;
       height: 100%;
       width: 0%;
-      background-color: var(--color-text); /* Using text color ensures it is visible (black on light, white on dark). Explicit white on light bg would be invisible. */
-      animation: load 2s var(--ease-out-cubic) forwards;
+      background-color: var(--color-text);
+      /* Animation removed from here, added to .active state below */
     }
     
-    /* SPECIAL OVERRIDE: If you strictly want WHITE color regardless of background */
-    /* Uncomment these lines if you really want white-on-cream (invisible) */
-    /* 
-    .loader-cursor { background-color: white; }
-    .loader-bar { background-color: white; }
-    */
-
-    /* BETTER INTERPRETATION: 
-       If the user means "make it the same color as the text/logo" (which is often white in dark mode),
-       using var(--color-text) is the safest bet. 
-       
-       However, I will add a specific rule for Dark Mode to ensure it is pure white there, 
-       and for Light Mode I will keep it dark so it is visible. 
-    */
+    /* NEW: Only animate when the 'active' class is added */
+    .loader-content.active .loader-bar {
+      animation: load 2s var(--ease-out-cubic) forwards;
+    }
 
     @media (prefers-color-scheme: dark) {
       .loader-cursor { background-color: #FFFFFF; }
       .loader-bar { background-color: #FFFFFF; }
     }
-    
-    /* If you are viewing this on a light screen and want it black/dark, the default var(--color-text) handles it. */
-
 
     #preloader.hidden {
       opacity: 0;
@@ -255,12 +312,10 @@
       max-width: 1400px;
       margin: 0 auto;
       padding: 120px 80px;
-      /* Improves rendering performance for off-screen content */
       content-visibility: auto;
       contain-intrinsic-size: 800px; 
     }
     
-    /* Override for Hero to ensure it's always visible immediately */
     .hero {
       content-visibility: visible;
       min-height: calc(100vh - 80px);
@@ -282,7 +337,6 @@
       transition: all 0.3s ease;
     }
 
-    /* Frosted Glass Background Layer */
     .header::before {
       content: '';
       position: absolute;
@@ -697,7 +751,7 @@
       left: 0;
       width: 0%;
       height: 3px;
-      background: var(--color-white); /* Updated to White */
+      background: var(--color-white);
       z-index: 2000;
       transition: width 0.1s;
     }
@@ -707,10 +761,9 @@
       .header { padding: 20px 24px; }
       .header.scrolled { padding: 16px 24px; }
       
-      /* UPDATED: Footer Mobile Layout */
       .footer { padding: 32px 24px; }
       .footer-content {
-        flex-direction: column; /* Stacks items vertically */
+        flex-direction: column; 
         gap: 16px;
         text-align: center;
       }
@@ -768,7 +821,21 @@
   </style>
 </head>
 <body>
-  <!-- START PRELOADER -->
+
+  <!-- START LOCK SCREEN (NEW) -->
+  <div id="lock-screen">
+    <div class="lock-content">
+      <div class="lock-title">Authentication Required</div>
+      <div class="lock-input-wrapper">
+        <input type="password" id="passkey" class="lock-input" placeholder="Enter Passkey" autocomplete="off">
+        <div class="lock-error" id="lock-error">Incorrect Passkey</div>
+      </div>
+      <button id="submit-pass" class="lock-submit">Unlock</button>
+    </div>
+  </div>
+  <!-- END LOCK SCREEN -->
+
+  <!-- START PRELOADER (Starts hidden, triggers after unlock) -->
   <div id="preloader">
     <div class="loader-content">
       <span class="loader-text">Poshith's Portfolio Loading<span class="loader-cursor"></span></span>
@@ -980,20 +1047,70 @@
   </footer>
 
   <script>
-    // --- PRELOADER SCRIPT START ---
-    // This script handles the fading out of the preloader once the page loads
-    window.addEventListener('load', () => {
-      const preloader = document.getElementById('preloader');
-      // Small timeout to ensure the animation is seen even on fast connections
-      setTimeout(() => {
-        preloader.classList.add('hidden');
-        // Optional: remove from DOM after transition to keep structure clean
+    // --- PASSKEY & PRELOADER SCRIPT START ---
+    // Define variables
+    const lockScreen = document.getElementById('lock-screen');
+    const passInput = document.getElementById('passkey');
+    const submitBtn = document.getElementById('submit-pass');
+    const lockError = document.getElementById('lock-error');
+    const preloader = document.getElementById('preloader');
+    const loaderContent = document.querySelector('.loader-content');
+
+    // ******************************************
+    // CHANGE YOUR PASSKEY HERE
+    // ******************************************
+    const CORRECT_PASSKEY = "2025"; 
+    // ******************************************
+
+    function handleLogin() {
+      const enteredPass = passInput.value;
+
+      if (enteredPass === CORRECT_PASSKEY) {
+        // 1. Unlock: Fade out lock screen
+        lockScreen.style.opacity = '0';
+        
         setTimeout(() => {
-          preloader.style.display = 'none';
-        }, 600); // Matches the CSS transition time
-      }, 2300); // Wait 2 seconds before hiding (adjust this value as needed)
+          lockScreen.style.display = 'none';
+
+          // 2. Start Loading: Show preloader
+          preloader.style.display = 'flex';
+          
+          // Trigger reflow to ensure animation plays
+          void preloader.offsetWidth; 
+          
+          // Start animation via class
+          loaderContent.classList.add('active');
+
+          // 3. Finish Loading: Hide preloader after 2.3s (matches your original timing)
+          setTimeout(() => {
+            preloader.classList.add('hidden');
+            setTimeout(() => {
+              preloader.style.display = 'none';
+            }, 600);
+          }, 2300);
+
+        }, 600); // Wait for lock screen fade out
+
+      } else {
+        // Error Handling
+        lockError.style.opacity = '1';
+        passInput.style.borderColor = '#ef4444';
+        passInput.value = "";
+        
+        // Reset error state after 2 seconds
+        setTimeout(() => {
+          lockError.style.opacity = '0';
+          passInput.style.borderColor = '';
+        }, 2000);
+      }
+    }
+
+    // Event Listeners for click and Enter key
+    submitBtn.addEventListener('click', handleLogin);
+    passInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') handleLogin();
     });
-    // --- PRELOADER SCRIPT END ---
+    // --- PASSKEY & PRELOADER SCRIPT END ---
 
     // Header Scroll Effect
     const header = document.getElementById('header');
@@ -1048,7 +1165,6 @@
     menuToggle.addEventListener('click', () => {
       nav.classList.toggle('active');
       
-      // Toggle body scroll lock to prevent background scrolling
       if (nav.classList.contains('active')) {
         document.body.style.overflow = 'hidden';
         menuToggle.textContent = '✕';
@@ -1061,16 +1177,10 @@
     navLinks.forEach(link => {
       link.addEventListener('click', () => {
         nav.classList.remove('active');
-        document.body.style.overflow = ''; // Unlock scroll on click
+        document.body.style.overflow = '';
         menuToggle.textContent = '☰';
       });
     });
   </script>
 </body>
 </html>
-
-
-
-
-
-
