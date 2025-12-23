@@ -1148,7 +1148,7 @@
       font-size: 14px;
     }
 
-    /* Contact */
+    /* Contact - Fixed to always show email */
     .contact-links {
       display: flex;
       flex-direction: column;
@@ -1162,39 +1162,33 @@
     .contact-link {
       font-size: 48px;
       font-weight: var(--font-weight-bold);
-      color: var(--color-text);
+      color: var(--color-text); /* Always visible text color */
       text-decoration: none;
       display: inline-block;
       transition: all 0.4s var(--ease-out-cubic);
       position: relative;
       width: fit-content;
-      background: linear-gradient(90deg, var(--color-text), var(--color-text));
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-size: 0% 100%;
-      background-repeat: no-repeat;
-      transition: background-size 0.6s var(--ease-out-cubic);
+      border-bottom: 3px solid transparent;
     }
 
     .contact-link:hover {
-      background-size: 100% 100%;
-    }
-
-    .contact-link::before {
-      content: attr(data-hover-text);
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 0;
-      overflow: hidden;
-      white-space: nowrap;
       color: var(--color-primary);
-      transition: width 0.6s var(--ease-out-cubic);
+      border-bottom-color: var(--color-primary);
+      transform: translateY(-3px);
     }
 
-    .contact-link:hover::before {
-      width: 100%;
+    .contact-link::after {
+      content: '📋';
+      position: absolute;
+      right: -40px;
+      opacity: 0;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      transform: translateX(-10px);
+    }
+
+    .contact-link:hover::after {
+      opacity: 1;
+      transform: translateX(0);
     }
 
     .contact-label {
@@ -1401,6 +1395,11 @@
       .contact-link-wrapper {
         overflow-x: auto;
         padding-bottom: 10px;
+      }
+
+      .contact-link::after {
+        right: -35px;
+        font-size: 20px;
       }
     }
 
@@ -1684,7 +1683,7 @@
       <div class="contact-links reveal-element delay-100">
         <div class="contact-link-wrapper">
           <span class="contact-label">Email</span>
-          <a href="mailto:poshithraja@gmail.com" class="contact-link" id="emailLink" data-hover-text="Click to Copy">
+          <a href="mailto:poshithraja@gmail.com" class="contact-link" id="emailLink">
             poshithraja@gmail.com
           </a>
         </div>
@@ -1923,6 +1922,16 @@
       downloadResume.addEventListener('click', () => {
         // In a real implementation, this would link to your resume PDF
         alert('Resume download would start here. In production, link to your actual resume PDF.');
+      });
+
+      // Toggle data stream button
+      const toggleDataStream = document.getElementById('toggleDataStream');
+      toggleDataStream.addEventListener('click', () => {
+        const particles = document.getElementById('heroParticles');
+        if (particles) {
+          particles.style.opacity = particles.style.opacity === '0' ? '0.1' : '0';
+          toggleDataStream.textContent = particles.style.opacity === '0' ? '🌀' : '🔴';
+        }
       });
 
       // Copy email functionality
